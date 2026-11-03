@@ -1,0 +1,28 @@
+cff-version: 1.2.0
+type: software
+message: "Please cite this software and the associated article when using this workflow."
+title: "Patent network growth: transitive closure and target reuse"
+abstract: >-
+  Python and Jupyter workflow for CPC-defined patent citation networks,
+  historical attachment opportunities, constrained temporal ensembles,
+  chronological growth models, diffusion, connectivity, and publication figures.
+authors:
+  - family-names: "Yang"
+    given-names: "Alex Jie"
+    affiliation: "Nanjing University"
+  - family-names: "Guo"
+    given-names: "Jianming"
+    affiliation: "Nanjing University"
+  - family-names: "Peng"
+    given-names: "Zhaoqi"
+    affiliation: "Nanjing University"
+  - family-names: "Deng"
+    given-names: "Sanhong"
+    affiliation: "Nanjing University"
+keywords:
+  - "complex networks"
+  - "patent citations"
+  - "network growth"
+  - "statistical physics"
+  - "transitive closure"
+  - "null models"
