@@ -24,7 +24,7 @@ python -m pytest -q
 
 ## 真实数据
 
-输入是已有研究层 Parquet 表及索引化的 NPY 矩阵，字段见 [data/README.md](data/README.md)。本仓库不包含大型数据，也不自动下载 USPTO 原始文件。
+程序读取研究层 Parquet 表及索引化 NPY 矩阵，字段与标识符约定见 [数据格式](docs/DATA_SCHEMA.md)。
 
 可以直接传入路径：
 
@@ -50,7 +50,7 @@ python run_all.py --config config.local.json
 python run_all.py --config config.local.json --run-name comparison_2025
 ```
 
-每次完整运行会重新建立对应的 `outputs/<run_name>/`，原始输入须位于其外。程序先检查所需文件是否存在；实际配置保存于 `outputs/`，不把本地路径写回公共 `config.json`。
+每次完整运行会重新建立对应的 `outputs/<run_name>/`，原始输入须位于其外。实际配置保存于 `outputs/`，不把本地路径写回公共 `config.json`。
 
 ## Notebook
 

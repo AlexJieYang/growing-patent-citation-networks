@@ -4,7 +4,7 @@
 
 Research code for **Transitive closure and target reuse in growing patent citation networks**. Six Python notebooks and a command-line entry point cover data preparation, network structure, historical attachment opportunities, diffusion, connectivity, chronological growth, constrained null ensembles, and publication figures.
 
-The implementation uses pandas, NumPy, SciPy, NetworkX, and Matplotlib. Patent-level data and embeddings are supplied separately. A generated two-domain example exercises the complete workflow without those inputs.
+The implementation uses pandas, NumPy, SciPy, NetworkX, and Matplotlib. The workflow supports empirical patent networks and a generated two-domain example.
 
 ## Installation
 
@@ -31,7 +31,7 @@ Results appear in `outputs/demo_physics/`. The example produces all ten figure p
 
 ## Empirical analysis
 
-The processed USPTO/PatentsView tables and indexed embedding matrix must follow [data/README.md](data/README.md). This workflow does not download the raw USPTO releases.
+The workflow uses processed USPTO/PatentsView tables and an indexed embedding matrix. Data types and alignment conventions are described in [docs/DATA_SCHEMA.md](docs/DATA_SCHEMA.md).
 
 Provide the data directory directly, without editing the tracked configuration:
 
@@ -63,7 +63,7 @@ To retain several analyses, use a different result name:
 python run_all.py --config config.local.json --run-name comparison_2025
 ```
 
-Each fresh run rebuilds its named directory under `outputs/`. Keep inputs outside that result directory. Required file presence is checked before existing results are reset. Effective settings are saved under `outputs/` and do not overwrite `config.json`.
+Each fresh run rebuilds its named directory under `outputs/`. Keep inputs outside that result directory. Effective settings are saved under `outputs/` and do not overwrite `config.json`.
 
 ## Notebooks
 
@@ -104,7 +104,7 @@ Default budgets are 30,000 selected nodes per domain, 600,000 nodes including ci
 
 ## Source checks and tests
 
-`python -m pytest -q` runs unit tests immediately. Data-dependent tests activate after `python run_all.py --demo`, checking chronology, vector alignment, opportunity histories, growth backbones, ensemble invariants, and figure formats. These research tests are run explicitly in a configured local environment. GitHub Actions runs only static source checks: Python syntax, JSON, notebook structure and clean execution state. It does not execute notebooks, simulations or research tests.
+`python -m pytest -q` runs unit tests immediately. Data-dependent tests activate after `python run_all.py --demo`, checking chronology, vector alignment, opportunity histories, growth backbones, ensemble invariants, and figure formats. These research tests are run explicitly in a configured local environment. GitHub Actions runs only static source checks: Python syntax, JSON, notebook structure and clean execution state.
 
 Run the same static checks locally with `python tools/check_sources.py`.
 
