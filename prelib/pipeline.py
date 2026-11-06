@@ -11,7 +11,7 @@ from .diffusion import run_spectral
 from .percolation import run_percolation
 from .growth import simulate_growth
 from .nulls import run_null_models
-from .plots import make_figures
+from .publication import make_figures
 
 
 def run_all(config_path='config.json', demo=False, *, source_root=None, run_name=None):
