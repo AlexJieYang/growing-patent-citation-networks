@@ -15,7 +15,7 @@ import pyarrow.parquet as pq
 
 from .cpc import domain_mask
 from .coverage import resolve_coverage
-from .common import ROOT, main_group, normalize_code, run_dir, shared_dir, save_table, write_json
+from .common import ROOT, input_paths, main_group, normalize_code, run_dir, shared_dir, save_table, write_json
 
 
 def schema(path):
@@ -78,19 +78,6 @@ def _metadata(paths, ids, cfg):
     # A missing exact CPC subgroup is not silently replaced by a coarser class.
     out.loc[~out.tech_code.str.contains("/", na=False), "tech_code"] = pd.NA
     return out
-
-
-def input_paths(cfg):
-    root = Path(cfg["source_root"]).expanduser()
-    if not root.is_absolute():
-        root = ROOT / root
-    suffix = "" if cfg["edge_source"] == "all" else "_" + cfg["edge_source"]
-    return {"dates": root / "02_core/patent_dates.parquet",
-            "fields": root / "02_core/patent_primary_field.parquet",
-            "edges": root / f"02_core/citation{suffix}.parquet",
-            "cpc": root / "02_core/patent_cpc.parquet",
-            "index": root / cfg["embedding_index"],
-            "vectors": root / cfg["embedding_vectors"]}
 
 
 def select_domains(cfg, paths):

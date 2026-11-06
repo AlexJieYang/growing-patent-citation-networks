@@ -51,7 +51,7 @@ def frozen_communities(nodes, refs, cfg):
              "code_nodes": graph.number_of_nodes(), "code_edges": graph.number_of_edges(),
              "n_communities": len(groups), "resolution": cfg["community_resolution"],
              "labels_frozen_after_baseline": True,
-             "classification_caveat": "current CPC retrospectively assigned, not historical classification vintage"}
+             "classification_basis": "current CPC assigned retrospectively"}
     if len(groups) < 2:
         raise ValueError("仅有一个历史社群，无法识别跨社群项。调整题域或社群分辨率后使用新的 run_name。")
     return mapping, members, summary

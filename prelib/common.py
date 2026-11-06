@@ -89,6 +89,19 @@ def set_active_config(path):
     write_json(ROOT / "outputs/active_config.json", {"config_file": str(path)})
 
 
+def input_paths(cfg):
+    root = Path(cfg['source_root']).expanduser()
+    if not root.is_absolute():
+        root = ROOT / root
+    suffix = '' if cfg['edge_source'] == 'all' else '_' + cfg['edge_source']
+    return {'dates': root / '02_core/patent_dates.parquet',
+            'fields': root / '02_core/patent_primary_field.parquet',
+            'edges': root / f'02_core/citation{suffix}.parquet',
+            'cpc': root / '02_core/patent_cpc.parquet',
+            'index': root / cfg['embedding_index'],
+            'vectors': root / cfg['embedding_vectors']}
+
+
 def run_dir(cfg, initialize=True):
     out = ROOT / "outputs" / cfg["run_name"]
     if cfg.get("_domain_id"):
@@ -102,12 +115,21 @@ def run_dir(cfg, initialize=True):
 
 def initialize_run(cfg):
     """Start at 00: replace only this project's named result directory."""
+    from .preflight import required_input_files
+
     if cfg.get("_domain_id") or not re.fullmatch(r"[A-Za-z][A-Za-z0-9_-]*",cfg["run_name"]):
         raise ValueError("只能从共享项目配置开始新计算。")
     parent=(ROOT/"outputs").resolve()
     out=ROOT/"outputs"/cfg["run_name"]
     if out.is_symlink() or out.resolve().parent != parent:
         raise ValueError("结果路径必须直接位于当前项目outputs目录中。")
+    target = out.resolve()
+    source = Path(cfg['source_root']).expanduser()
+    if not source.is_absolute():
+        source = ROOT / source
+    source = source.resolve()
+    if source == target or target in source.parents:
+        raise ValueError('Source and result directories must not overlap.')
     if cfg.get('prepared_data_root'):
         source=Path(cfg['prepared_data_root']).expanduser()
         if not source.is_absolute():source=ROOT/source
@@ -115,6 +137,10 @@ def initialize_run(cfg):
             raise ValueError('Prepared input cannot be located inside the result directory being reset.')
     if cfg.get('reuse_prepared_if_available') and cfg.get('reuse_prepared_run')==cfg['run_name']:
         raise ValueError('A new run must not overwrite its prepared input run.')
+    for path in required_input_files(cfg):
+        resolved = path.resolve()
+        if resolved == target or target in resolved.parents:
+            raise ValueError(f'An input is inside the result directory being reset: {path}')
     if out.exists():shutil.rmtree(out)
     return run_dir(cfg)
 

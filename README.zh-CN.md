@@ -29,7 +29,7 @@ python -m pytest -q
 可以直接传入路径：
 
 ```powershell
-python run_all.py --source-root "C:\data\PatentsView"
+python run_all.py --source-root data/PatentsView
 ```
 
 也可创建本地配置：

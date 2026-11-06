@@ -54,4 +54,4 @@ The constrained chain preserves directed degrees and local citation-year profile
 | `figures/captions/` | Standalone captions |
 | `figures/figure_index.csv` | Figure file index |
 
-Empirical data and outputs are not bundled with the source repository. The synthetic workflow checks executable behavior rather than reproducing the paper's measured values.
+Configure empirical inputs through `source_root` in the selected configuration. The synthetic workflow uses its own generated inputs and result directory.

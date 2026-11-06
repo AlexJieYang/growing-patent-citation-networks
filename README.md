@@ -36,13 +36,7 @@ The workflow uses processed USPTO/PatentsView tables and an indexed embedding ma
 Provide the data directory directly, without editing the tracked configuration:
 
 ```bash
-python run_all.py --source-root /path/to/PatentsView
-```
-
-On Windows, for example:
-
-```powershell
-python run_all.py --source-root "C:\data\PatentsView"
+python run_all.py --source-root data/PatentsView
 ```
 
 Alternatively, copy the public configuration to an ignored local file:
@@ -100,7 +94,7 @@ The paper uses 768-dimensional PatentSBERTa embeddings of concatenated titles an
 
 Shared summaries and figure plates appear under `outputs/<run_name>/`. Domain data, tables, and models appear under `outputs/<run_name>/domains/neural/` and `domains/laser/`. Captions are separate files in `figures/captions/`; plots retain panel letters, axes, and legends.
 
-Default budgets are 30,000 selected nodes per domain, 600,000 nodes including citation boundaries, 2,000,000 retained edges, 3 GiB of selected vectors, and 100,000,000 cached growth candidate pairs. Citation tables are read in 200,000-row batches; vectors use memory mapping and numerical threads default to four. These component budgets do not bound total process memory.
+Default budgets are 30,000 selected nodes per domain, 600,000 nodes including citation boundaries, 2,000,000 retained edges, 3 GiB of selected vectors, and 100,000,000 cached growth candidate pairs. Citation tables are read in 200,000-row batches; vectors use memory mapping and numerical threads default to four.
 
 ## Source checks and tests
 
