@@ -73,8 +73,17 @@ python run_all.py --config config.local.json --run-name comparison_2025
 
 保留面向工作站的有界设置：每领域最多 30,000 节点，含引用边界最多 600,000 节点、保留边最多 200 万、选中向量最多 3 GiB、增长候选对最多 1 亿。引用按 20 万行分块，数值线程为 4。各预算约束不同计算对象，并非总内存上限。结果均在代码同目录的 `outputs/` 子文件夹中。
 
-## 上传 GitHub
+## 源码检查与提交
 
-将本目录源码上传到仓库根目录，保留 `prelib/`、Notebook、`config.json` 的同级关系，同时上传 `.github/`、`.gitignore`、`.gitattributes`。详细步骤见 [上传说明](docs/UPLOAD_TO_GITHUB.md)。
+Notebook、`prelib/` 和 `config.json` 保持同级。所有 Notebook 均不保存执行输出或执行次数。运行后提交源码前，可执行：
 
-运行后再次提交前，执行 `python tools/clean_notebooks.py` 清除 Notebook 输出。自动测试包含 Linux/Windows 单元测试及完整合成示例。Git 忽略真实输入和生成结果；网页手动上传时也应只选择源码。作者和引用信息保存在 `CITATION.cff`。
+```bash
+python tools/clean_notebooks.py
+python tools/check_sources.py
+```
+
+GitHub Actions 仅检查 Python 语法、JSON、Notebook 结构及空输出状态，不执行 Notebook、研究测试或模拟。已有科学测试可在配置好依赖后主动运行 `python -m pytest -q`。`.gitignore` 排除本地输入、配置、生成结果和缓存。作者与引用信息见 `CITATION.cff`。
+
+## 许可
+
+研究代码采用 [MIT 许可](LICENSE)。外部专利数据、嵌入向量和其他第三方材料仍适用各自的许可与获取条件。

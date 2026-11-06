@@ -102,9 +102,11 @@ Shared summaries and figure plates appear under `outputs/<run_name>/`. Domain da
 
 Default budgets are 30,000 selected nodes per domain, 600,000 nodes including citation boundaries, 2,000,000 retained edges, 3 GiB of selected vectors, and 100,000,000 cached growth candidate pairs. Citation tables are read in 200,000-row batches; vectors use memory mapping and numerical threads default to four. These component budgets do not bound total process memory.
 
-## Tests and GitHub
+## Source checks and tests
 
-`python -m pytest -q` runs unit tests immediately. Data-dependent tests activate after `python run_all.py --demo`, checking chronology, vector alignment, opportunity histories, growth backbones, ensemble invariants, and figure formats. GitHub Actions defines Linux/Windows unit jobs and a complete synthetic integration job.
+`python -m pytest -q` runs unit tests immediately. Data-dependent tests activate after `python run_all.py --demo`, checking chronology, vector alignment, opportunity histories, growth backbones, ensemble invariants, and figure formats. These research tests are run explicitly in a configured local environment. GitHub Actions runs only static source checks: Python syntax, JSON, notebook structure and clean execution state. It does not execute notebooks, simulations or research tests.
+
+Run the same static checks locally with `python tools/check_sources.py`.
 
 Clean notebook execution artifacts before committing:
 
@@ -113,4 +115,8 @@ python tools/clean_notebooks.py
 python tools/clean_notebooks.py --check
 ```
 
-`.gitignore` excludes raw inputs, local configuration, generated outputs, and caches. Distributed notebooks have no saved outputs or execution counts. See [GitHub upload instructions](docs/UPLOAD_TO_GITHUB.md). Author and software citation metadata is in [CITATION.cff](CITATION.cff).
+`.gitignore` excludes raw inputs, local configuration, generated outputs, and caches. Distributed notebooks have no saved outputs or execution counts. Author and software citation metadata is in [CITATION.cff](CITATION.cff).
+
+## License
+
+The research code is available under the [MIT License](LICENSE). External patent records, embeddings and other third-party materials retain their original licenses and access conditions.
